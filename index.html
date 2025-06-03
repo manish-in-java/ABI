@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>ABI</title>
+
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.global.prod.min.js" integrity="sha512-39BSQXI5q1XlvVhLfFRidKG8KM6Tr6VS/XSnNo6N/A0ZXexHCeoUI/s+ulujQy3UREjoLNrMnFat8VI0mMugWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <script type="module">
+            Vue.createApp({
+                data() {
+                    return {
+                        denominator: 120,
+                        index: 1,
+                        leftAnkleDiastolic: 80,
+                        leftAnkleSystolic: 120,
+                        leftArmDiastolic: 80,
+                        leftArmSystolic: 120,
+                        numerator: 120,
+                        rightAnkleDiastolic: 80,
+                        rightAnkleSystolic: 120,
+                        rightArmDiastolic: 80,
+                        rightArmSystolic: 120,
+                        risk: "none"
+                    }
+                },
+                methods: {
+                    calculateABI() {
+                        this.denominator = Math.max(this.leftArmSystolic, this.rightArmSystolic);
+                        this.numerator = Math.max(this.leftAnkleSystolic, this.rightAnkleSystolic);
+                        this.index = (this.numerator / this.denominator).toFixed(2);
+                        
+                        if (this.index < 0.5) {
+                            this.risk = "high";
+                        }
+                        else if (this.index < 0.8) {
+                            this.risk = "medium";
+                        }
+                        else if (this.index < 0.9) {
+                            this.risk = "low";
+                        }
+                        else if (this.index < 1.4) {
+                            this.risk = "none";
+                        }
+                        else {
+                            this.risk = "high";
+                        }
+                    }
+                },
+                mounted() {
+                    this.calculateABI()
+                },
+            }).mount('body')
+        </script>
+    </head>
+
+    <body>
+        <section class="flex flex-col justify-center antialiased bg-gray-100 text-gray-600 min-h-screen">
+            <div class="p-4 sm:px-6 h-full">
+                <div class="flex flex-col col-span-full xl:col-span-8 bg-white shadow-lg rounded-sm border border-gray-200">
+                    <header class="px-5 py-4 border-b border-gray-100 flex items-center">
+                        <h1 class="font-extrabold text-2xl">Ankle Brachial Index (ABI) Calculator</h1>
+                    </header>
+                    <div class="grid grid-cols-2 gap-8 px-5 py-4">
+                        <div class="px-4 py-3 w-full">
+                            <h2 class="font-bold text-lg">Left Arm</h2>
+                            <input class="shadow appearance-none border rounded py-2 px-3"
+                                    min="0"
+                                    placeholder="Systolic"
+                                    type="number"
+                                    v-model="leftArmSystolic"
+                                    @change="calculateABI()"/> mmHg
+                            /
+                            <input class="shadow appearance-none border rounded py-2 px-3"
+                                    min="0"
+                                    placeholder="Diastolic"
+                                    type="number"
+                                    v-model="leftArmDiastolic"
+                                    @change="calculateABI()"/> mmHg
+                        </div>
+                        <div class="px-4 py-3 w-full">
+                            <h2 class="font-bold text-lg">Right Arm</h2>
+                            <input class="shadow appearance-none border rounded py-2 px-3"
+                                    min="0"
+                                    placeholder="Systolic"
+                                    type="number"
+                                    v-model="rightArmSystolic"
+                                    @change="calculateABI()"/> mmHg
+                            /
+                            <input class="shadow appearance-none border rounded py-2 px-3"
+                                    min="0"
+                                    placeholder="Diastolic"
+                                    type="number"
+                                    v-model="rightArmDiastolic"
+                                    @change="calculateABI()"/> mmHg
+                        </div>
+                        <div class="px-4 py-3 w-full">
+                            <h2 class="font-bold text-lg">Left Ankle</h2>
+                            <input class="shadow appearance-none border rounded py-2 px-3"
+                                    min="0"
+                                    placeholder="Systolic"
+                                    type="number"
+                                    v-model="leftAnkleSystolic"
+                                    @change="calculateABI()"/> mmHg
+                            /
+                            <input class="shadow appearance-none border rounded py-2 px-3"
+                                    min="0"
+                                    placeholder="Diastolic"
+                                    type="number"
+                                    v-model="leftAnkleDiastolic"
+                                    @change="calculateABI()"/> mmHg
+                        </div>
+                        <div class="px-4 py-3 w-full">
+                            <h2 class="font-bold text-lg">Right Ankle</h2>
+                            <input class="shadow appearance-none border rounded py-2 px-3"
+                                    min="0"
+                                    placeholder="Systolic"
+                                    type="number"
+                                    v-model="rightAnkleSystolic"
+                                    @change="calculateABI()"/> mmHg
+                            /
+                            <input class="shadow appearance-none border rounded py-2 px-3"
+                                    min="0"
+                                    placeholder="Diastolic"
+                                    type="number"
+                                    v-model="rightAnkleDiastolic"
+                                    @change="calculateABI()"/> mmHg
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-8 px-5 py-4">
+                        <div class="px-4 py-3 w-full">
+                            <h2 class="text-lg">P<sub><small>LEG</small></sub> = {{ numerator }}</h2>
+                        </div>
+                        <div class="px-4 py-3 w-full">
+                            <h2 class="text-lg">P<sub><small>ARM</small></sub> = {{ denominator }}</h2>
+                        </div>
+                        <div class="px-4 py-3 w-full">{{ risk }}
+                            <h2 class="font-bold text-lg" v-bind:class="risk === 'none'
+                                                                            ? 'text-green-800'
+                                                                            : risk === 'low'
+                                                                                ? 'text-yellow-800'
+                                                                                : risk === 'medium'
+                                                                                    ? 'text-orange-800'
+                                                                                    : 'text-red-800'">ABI = {{ index }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
