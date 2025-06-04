@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-theme="light">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>ABI</title>
 
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/picocss/2.1.0/pico.min.css" integrity="sha512-VabDICIiO3Q38T5DDIaelzPmEGDziNEyzzr4tU8tHdq+Z/QIap5LuwYez4iZLF9JFDgqpx0pVasyXzAtBEzYmw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css" integrity="sha512-YHuwZabI2zi0k7c9vtg8dK/63QB0hLvD4thw44dFo/TfBFVVQOqEG9WpviaEpbyvgOIYLXF1n7xDUfU3GDs0sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.global.prod.min.js" integrity="sha512-39BSQXI5q1XlvVhLfFRidKG8KM6Tr6VS/XSnNo6N/A0ZXexHCeoUI/s+ulujQy3UREjoLNrMnFat8VI0mMugWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
         <script type="module">
@@ -56,100 +58,169 @@
                 },
             }).mount('body')
         </script>
+
+        <style>
+            .text-green {
+                color: green;
+            }
+
+            .text-orange {
+                color: #FF5400;
+            }
+
+            .text-red {
+                color: red;
+            }
+
+            .text-yellow {
+                color: #F7B70B;
+            }
+        </style>
     </head>
 
     <body>
-        <section class="flex flex-col justify-center antialiased bg-gray-100 text-gray-600 min-h-screen">
-            <div class="p-4 sm:px-6 h-full">
-                <div class="flex flex-col col-span-full xl:col-span-8 bg-white shadow-lg rounded-sm border border-gray-200">
-                    <header class="px-5 py-4 border-b border-gray-100 flex items-center">
-                        <h1 class="font-extrabold text-2xl">Ankle Brachial Index (ABI) Calculator</h1>
-                    </header>
-                    <div class="grid grid-cols-2 gap-8 px-5 py-4">
-                        <div class="px-4 py-3 w-full">
-                            <h2 class="font-bold text-lg">Left Arm</h2>
-                            <input class="shadow appearance-none border rounded py-2 px-3"
-                                    min="0"
+        <main class="container">
+            <br /><br />
+            <h1>Ankle Brachial Index (ABI) Calculator</h1>
+            <br />
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="row middle-xs">
+                        <div class="col-xs-12">
+                            <h4>Left Arm</h4>
+                        </div>
+                        <div class="col-xs-5">
+                            <input min="0"
                                     placeholder="Systolic"
                                     type="number"
                                     v-model="leftArmSystolic"
-                                    @change="calculateABI()"/> mmHg
-                            /
-                            <input class="shadow appearance-none border rounded py-2 px-3"
-                                    min="0"
+                                    @change="calculateABI()"/>
+                        </div>
+                        <div class="col-xs-1 center-xs"><h3>/</h3></div>
+                        <div class="col-xs-5">
+                            <input min="0"
                                     placeholder="Diastolic"
                                     type="number"
                                     v-model="leftArmDiastolic"
-                                    @change="calculateABI()"/> mmHg
+                                    @change="calculateABI()"/>
                         </div>
-                        <div class="px-4 py-3 w-full">
-                            <h2 class="font-bold text-lg">Right Arm</h2>
-                            <input class="shadow appearance-none border rounded py-2 px-3"
-                                    min="0"
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="row middle-xs">
+                        <div class="col-xs-12">
+                            <h4>Right Arm</h4>
+                        </div>
+                        <div class="col-xs-5">
+                            <input min="0"
                                     placeholder="Systolic"
                                     type="number"
                                     v-model="rightArmSystolic"
-                                    @change="calculateABI()"/> mmHg
-                            /
-                            <input class="shadow appearance-none border rounded py-2 px-3"
-                                    min="0"
+                                    @change="calculateABI()"/>
+                        </div>
+                        <div class="col-xs-1 center-xs"><h3>/</h3></div>
+                        <div class="col-xs-5">
+                            <input min="0"
                                     placeholder="Diastolic"
                                     type="number"
                                     v-model="rightArmDiastolic"
-                                    @change="calculateABI()"/> mmHg
+                                    @change="calculateABI()"/>
                         </div>
-                        <div class="px-4 py-3 w-full">
-                            <h2 class="font-bold text-lg">Left Ankle</h2>
-                            <input class="shadow appearance-none border rounded py-2 px-3"
-                                    min="0"
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="row middle-xs">
+                        <div class="col-xs-12">
+                            <h4>Left Ankle</h4>
+                        </div>
+                        <div class="col-xs-5">
+                            <input min="0"
                                     placeholder="Systolic"
                                     type="number"
                                     v-model="leftAnkleSystolic"
-                                    @change="calculateABI()"/> mmHg
-                            /
-                            <input class="shadow appearance-none border rounded py-2 px-3"
-                                    min="0"
+                                    @change="calculateABI()"/>
+                        </div>
+                        <div class="col-xs-1 center-xs"><h3>/</h3></div>
+                        <div class="col-xs-5">
+                            <input min="0"
                                     placeholder="Diastolic"
                                     type="number"
                                     v-model="leftAnkleDiastolic"
-                                    @change="calculateABI()"/> mmHg
+                                    @change="calculateABI()"/>
                         </div>
-                        <div class="px-4 py-3 w-full">
-                            <h2 class="font-bold text-lg">Right Ankle</h2>
-                            <input class="shadow appearance-none border rounded py-2 px-3"
-                                    min="0"
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="row middle-xs">
+                        <div class="col-xs-12">
+                            <h4>Right Ankle</h4>
+                        </div>
+                        <div class="col-xs-5">
+                            <input min="0"
                                     placeholder="Systolic"
                                     type="number"
                                     v-model="rightAnkleSystolic"
-                                    @change="calculateABI()"/> mmHg
-                            /
-                            <input class="shadow appearance-none border rounded py-2 px-3"
-                                    min="0"
+                                    @change="calculateABI()"/>
+                        </div>
+                        <div class="col-xs-1 center-xs"><h3>/</h3></div>
+                        <div class="col-xs-5">
+                            <input min="0"
                                     placeholder="Diastolic"
                                     type="number"
                                     v-model="rightAnkleDiastolic"
-                                    @change="calculateABI()"/> mmHg
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-3 gap-8 px-5 py-4">
-                        <div class="px-4 py-3 w-full">
-                            <h2 class="text-lg">P<sub><small>LEG</small></sub> = {{ numerator }}</h2>
-                        </div>
-                        <div class="px-4 py-3 w-full">
-                            <h2 class="text-lg">P<sub><small>ARM</small></sub> = {{ denominator }}</h2>
-                        </div>
-                        <div class="px-4 py-3 w-full">{{ risk }}
-                            <h2 class="font-bold text-lg" v-bind:class="risk === 'none'
-                                                                            ? 'text-green-800'
-                                                                            : risk === 'low'
-                                                                                ? 'text-yellow-800'
-                                                                                : risk === 'medium'
-                                                                                    ? 'text-orange-800'
-                                                                                    : 'text-red-800'">ABI = {{ index }}</h2>
+                                    @change="calculateABI()"/>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+            <br /><br />
+            <div class="row">
+                <div class="col-xs-4">
+                    <h4>P<sub><small>LEG</small></sub> = {{ numerator }}</h4>
+                </div>
+                <div class="col-xs-4">
+                    <h4>P<sub><small>ARM</small></sub> = {{ denominator }}</h4>
+                </div>
+                <div class="col-xs-4">
+                    <h4 v-bind:class="risk === 'none'
+                                        ? 'text-green'
+                                        : risk === 'low'
+                                            ? 'text-yellow'
+                                            : risk === 'medium'
+                                                ? 'text-orange'
+                                                : 'text-red'">ABI = {{ index }}</h4>
+                </div>
+            </div>
+            <br /><br />
+            <table class="striped">
+                <caption><h4>Score Reference</h4></caption>
+                <tbody>
+                    <tr>
+                        <th>Greater than 1.40</th>
+                        <td>Calcification / hardening of blood vessels</td>
+                    </tr>
+                    <tr>
+                        <th>1.00 to 1.40</th>
+                        <td>Normal</td>
+                    </tr>
+                    <tr>
+                        <th>0.90 to 1.00</th>
+                        <td>Acceptable</td>
+                    </tr>
+                    <tr>
+                        <th>0.80 to 0.90</th>
+                        <td>Some arterial disease</td>
+                    </tr>
+                    <tr>
+                        <th>0.50 to 0.80</th>
+                        <td>Moderate arterial disease</td>
+                    </tr>
+                    <tr>
+                        <th>Less than 0.50</th>
+                        <td>Severe arterial disease</td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
     </body>
 </html>
